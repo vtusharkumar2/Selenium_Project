@@ -1,0 +1,43 @@
+# Step 1: Import libraries
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+import time
+
+# Step 2: Create a Page class (LoginPage)
+class LoginPage:
+    def __init__(self, driver):
+        self.driver = driver
+
+        # Define locators (element identifiers)
+        self.username_input = (By.ID, "username")
+        self.password_input = (By.ID, "password")
+        self.login_button = (By.ID, "submit")
+
+    def enter_username(self, username):
+        self.driver.find_element(*self.username_input).send_keys(username)
+
+    def enter_password(self, password):
+        self.driver.find_element(*self.password_input).send_keys(password)
+
+    def click_login(self):
+        self.driver.find_element(*self.login_button).click()
+
+
+# Step 3: Test script (like your test file)
+driver = webdriver.Chrome()
+driver.get("https://practicetestautomation.com/practice-test-login/")
+driver.maximize_window()
+print("Opened the Login Page")
+
+# Step 4: Create object of the LoginPage
+login_page = LoginPage(driver)
+
+# Step 5: Use the methods
+login_page.enter_username("student")
+login_page.enter_password("Password123")
+login_page.click_login()
+print("Login attempted")
+
+# Wait and close
+time.sleep(3)
+driver.quit()
